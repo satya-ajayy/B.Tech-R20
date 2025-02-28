@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en"> 
+    <script src= "https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script> 
+    <style> 
+        .column { 
+        float: left; 
+        text-align: left; 
+        width: 49%; 
+        } 
+        .row { 
+        content: ""; 
+        display: table; 
+        } 
+    </style> 
+
+<body ng-app="myApp" ng-controller="myController">  
+    <div class="column">
+    Name- <input type="text" ng-model="name"> 
+    <pre> {{ name }} </pre> 
+    Checkbox- <input type="checkbox" ng-model="check"> 
+    <pre> {{ check }} </pre> 
+    Number- <input type="number" ng-model="num"> 
+    <pre> {{ num }} </pre>
+    Email- <input type="email" ng-model="mail"> 
+    <pre> {{ mail }} </pre> 
+    Date: 
+    <input type="date"ng-model="date1"(change)="log(date1)"> 
+    <pre> Today's date:{{ date1 }}</pre> 
+    </div> 
+</body> 
+
+<script> 
+    var app = angular.module('myApp', []); 
+    app.controller('myController', function($scope) { 
+        $scope.name = ""; 
+        $scope.check = ""; 
+        $scope.num = ""; 
+        $scope.mail = ""; 
+        $scope.date1 = "";
+    }); 
+</script>

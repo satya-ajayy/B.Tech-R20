@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Angular JS Scope</title>
+</head>
+<body ng-app="myApp">
+	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
+    <div ng-controller="myController">
+        <input type="text" placeholder="Enter your name" ng-model="name" />
+        <button ng-click="sayHello()">Say Hello</button>
+        <h1>{{ greeting }}</h1>
+    </div>
+
+    <script>
+        var app = angular.module('myApp', []);
+        app.controller('myController', function ($scope) {
+            $scope.greeting = ' ';
+			$scope.name = ' ';
+            $scope.sayHello = function () {
+                    $scope.greeting = 'Hello ' + $scope.name + '!';
+            };
+        });
+    </script>
+</body>
+</html>

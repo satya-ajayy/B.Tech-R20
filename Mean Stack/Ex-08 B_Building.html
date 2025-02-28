@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html ng-app="myApp">
+
+<head>
+  <title>Backend Building with AngularJS</title>
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular-mocks.js"></script>
+  <script>
+    var app = angular.module('myApp', ['ngMockE2E']);
+
+    // Define a controller
+    app.controller('myController', function($scope, $http) {
+
+      // Function to fetch data from the backend
+      $scope.fetchData = function() {
+        $http.get('/api/data')
+          .then(function(response) {
+            $scope.data = response.data;
+          })
+          .catch(function(error) {
+            console.log('Error:', error);
+          });
+      };
+
+      // Function to save data to the backend
+      $scope.saveData = function() {
+        $http.post('/api/data', $scope.newData)
+          .then(function(response) {
+            $scope.fetchData();
+            $scope.newData = {};
+          })
+          .catch(function(error) {
+            console.log('Error:', error);
+          });
+      };
+
+    });
+
+    // Simulating API endpoints
+    app.run(function($httpBackend) {
+      var dummyData = [];
+
+      $httpBackend.whenGET('/api/data').respond(dummyData);
+      $httpBackend.whenPOST('/api/data').respond(function(method, url, data) {
+        dummyData.push(angular.fromJson(data));
+        return [200, { message: 'Data saved successfully' }];
+      });
+      $httpBackend.whenGET(/.*/).passThrough();
+      $httpBackend.whenPOST(/.*/).passThrough();
+    });
+  </script>
+</head>
+
+<body ng-controller="myController">
+  <h1 style="text-align: center;">Backend Building with AngularJS</h1>
+  <h2>Data List</h2>
+  <ul>
+    <li ng-repeat="item in data">{{ item.name }} - {{ item.description }}</li>
+  </ul>
+
+  <h2>Add New Data</h2>
+  <form ng-submit="saveData()">
+    <input type="text" ng-model="newData.name" placeholder="ItemName" required><br>
+    <br>
+    <input type="number" ng-model="newData.description" placeholder="Price" required><br>
+    <br>
+    <button type="submit">Save</button>
+  </form>
+</body>
+</html>

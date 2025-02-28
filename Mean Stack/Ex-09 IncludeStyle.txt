@@ -1,0 +1,32 @@
+To include a framework's stylesheet in an Angular CLI configuration, you can follow these steps:
+
+Install the framework's stylesheet package using npm or yarn. For example, let's consider including Bootstrap:
+
+npm install bootstrap
+
+Open the angular.json file in the root directory of your Angular project.
+
+Locate the "styles" array within the "build" and "test" options. It should look like this:
+
+"build": {
+  "options": {
+    "styles": [
+      "src/styles.css",
+      "node_modules/vidhey/bootstrap/dist/css/bootstrap.min.css" <---------------- added line
+    ]
+  }
+},
+"test": {
+  "options": {
+    "styles": [
+      "src/styles.css",
+      "node_modules/vidhey/bootstrap/dist/css/bootstrap.min.css" <---------------- added line
+    ]
+  }
+},
+
+Make sure to adjust the path based on the location of the framework's stylesheet within the node_modules directory.
+
+Save the changes to the angular.json file.
+
+By including the framework's stylesheet in the "styles" array, it will be automatically loaded when you build or run your Angular project using the Angular CLI commands.

@@ -1,0 +1,72 @@
+<html ng-app="myApp">
+
+<head>
+    <title>Student Form</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
+</head>
+
+<body ng-controller="StudentController">
+
+            <h2>Student Form</h2>
+            <form ng-submit="submitForm()">
+				<label for="name">Name:</label>
+				<input type="text" id="name" ng-model="student.name" required><br/>
+				<label for="age">Age:</label>
+				<input type="number" id="age" ng-model="student.age" required><br/>
+				<label for="grade">Grade:</label>
+				<input type="text" id="grade" ng-model="student.grade" required><br/>
+				<label for="email">Email:</label>
+				<input type="email" id="email" ng-model="student.email" required><br/>
+				<label for="address">Address:</label>
+				<input type="text" id="address" ng-model="student.address" required><br/>
+                <label for="phone">Phone:</label>
+				<input type="tel" id="phone" ng-model="student.phone" required><br/>
+                <button type="submit">Submit</button>
+                <button type="button" ng-click="resetForm()">Reset</button>
+            </form>
+
+
+        <br/>
+        <br/>
+
+
+        <table border=2>
+            <h2>Student Records</h2>
+            <tr>
+                <th>Name</th>
+                <th>Age</th>
+                <th>Grade</th>
+                <th>Email</th>
+                <th>Address</th>
+                <th>Phone</th>
+            </tr>
+            <tr ng-repeat="record in studentRecords">
+                <td>{{ record.name }}</td>
+                <td>{{ record.age }}</td>
+                <td>{{ record.grade }}</td>
+                <td>{{ record.email }}</td>
+                <td>{{ record.address }}</td>
+                <td>{{ record.phone }}</td>
+            </tr>
+        </table>
+
+    <script>
+        angular.module('myApp', [])
+            .controller('StudentController', ['$scope', function($scope) {
+                $scope.student = {};
+                $scope.studentRecords = [];
+
+                $scope.submitForm = function() {
+                    $scope.studentRecords.push(angular.copy($scope.student));
+                    $scope.resetForm();
+                };
+
+                $scope.resetForm = function() {
+                    $scope.student = {};
+                };
+            }]);
+    </script>
+
+</body>
+
+</html>
