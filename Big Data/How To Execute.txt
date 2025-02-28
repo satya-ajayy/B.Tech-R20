@@ -1,0 +1,14 @@
+bda.MutualFriends
+bigdata.PageRankDriver
+shortpath.Dijkstra
+bda.MyMaxMin
+
+
+hdfs namenode -format
+hdfs datanode -format
+start-all.cmd
+
+hdfs dfs -mkdir /dir
+hdfs dfs -copyFromLocal C:\hadoop-2.7.6\input.txt /dir/
+yarn jar C:\hadoop-2.7.6\<name>.jar <packagename.classname> /dir /odir
+hdfs dfs -cat /odir/*

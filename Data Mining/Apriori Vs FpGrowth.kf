@@ -1,0 +1,76 @@
+{
+	"flow_name" : "Apriori Vs FpGrowth",
+	"steps" : [
+		{
+			"class" : "weka.knowledgeflow.steps.Loader",
+			"properties" : {
+				"loader" : {
+					"type" : "loader",
+					"class" : "weka.core.converters.ArffLoader",
+					"filePath" : "C:/Program Files/Weka-3-8-6/data/supermarket.arff",
+					"useRelativePath" : false
+				},
+				"name" : "ArffLoader"
+			},
+			"connections" : {
+				"dataSet" : [
+					"Apriori",
+					"FPGrowth"
+				]
+			},
+			"coordinates" : "73,36"
+		},
+		{
+			"class" : "weka.knowledgeflow.steps.Associator",
+			"properties" : {
+				"associator" : {
+					"type" : "optionHandler",
+					"class" : "weka.associations.Apriori",
+					"options" : "-N 10 -T 0 -C 0.9 -D 0.05 -U 1.0 -M 0.1 -S -1.0 -c -1"
+				},
+				"name" : "Apriori"
+			},
+			"connections" : {
+				"text" : [
+					"TextViewer2"
+				]
+			},
+			"coordinates" : "316,35"
+		},
+		{
+			"class" : "weka.knowledgeflow.steps.Associator",
+			"properties" : {
+				"associator" : {
+					"type" : "optionHandler",
+					"class" : "weka.associations.FPGrowth",
+					"options" : "-P 2 -I -1 -N 10 -T 0 -C 0.9 -D 0.05 -U 1.0 -M 0.1"
+				},
+				"name" : "FPGrowth"
+			},
+			"connections" : {
+				"text" : [
+					"TextViewer"
+				]
+			},
+			"coordinates" : "71,184"
+		},
+		{
+			"class" : "weka.knowledgeflow.steps.TextViewer",
+			"properties" : {
+				"name" : "TextViewer"
+			},
+			"connections" : {
+			},
+			"coordinates" : "74,326"
+		},
+		{
+			"class" : "weka.knowledgeflow.steps.TextViewer",
+			"properties" : {
+				"name" : "TextViewer2"
+			},
+			"connections" : {
+			},
+			"coordinates" : "532,31"
+		}
+	]
+}
